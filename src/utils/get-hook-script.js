@@ -88,6 +88,11 @@ module.exports = function getHookScript(hookName, relativePath, npmScriptName) {
 
       cd "${normalizedPath}"
 
+      # Check if we need to skip verification
+      if [ -n "\${SKIP_HUSKY}" ]; then
+        exit 0
+      fi
+
       # Check if ${npmScriptName} script is defined, skip if not
       has_hook_script ${npmScriptName} || exit 0`
     ).trim(),
